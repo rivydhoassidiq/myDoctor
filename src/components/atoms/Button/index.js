@@ -1,24 +1,35 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity} from 'react-native';
+import {colors, fonts} from '../../../utils';
+import IconOnly from './IconOnly';
 
-export default function Button({type, title}) {
+export default function Button({type, title, onPress, icon}) {
+  if (type === 'icon-only') {
+    return <IconOnly icon={icon} onPress={onPress} />;
+  }
   return (
-    <View style={styles.container(type)}>
+    <TouchableOpacity style={styles.container(type)} onPress={onPress}>
       <Text style={styles.text(type)}>{title}</Text>
-    </View>
+    </TouchableOpacity>
   );
 }
 
 const styles = StyleSheet.create({
   container: type => ({
-    backgroundColor: type === 'secondary' ? 'white' : '#0BCAD4',
+    backgroundColor:
+      type === 'secondary'
+        ? colors.button.secondary.background
+        : colors.button.primary.background,
     paddingVertical: 10,
     borderRadius: 10,
   }),
   text: type => ({
     fontSize: 18,
     textAlign: 'center',
-    fontFamily: 'Nunito-SemiBold',
-    color: type === 'secondary' ? '#112340' : 'white',
+    fontFamily: fonts.primary[600],
+    color:
+      type === 'secondary'
+        ? colors.button.secondary.text
+        : colors.button.primary.text,
   }),
 });
