@@ -2,8 +2,9 @@ import React, {useState} from 'react';
 import {ScrollView, StyleSheet, View} from 'react-native';
 import {Button, Gap, Header, Input} from '../../components';
 import {colors, useForm} from '../../utils';
+
+import {Auth} from '../../config';
 import {createUserWithEmailAndPassword} from 'firebase/auth';
-import Auth from '../../config/Firebase';
 
 export default function Register({navigation}) {
   const [form, setForm] = useForm({
