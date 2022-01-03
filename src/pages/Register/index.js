@@ -2,9 +2,8 @@ import React, {useState} from 'react';
 import {ScrollView, StyleSheet, View} from 'react-native';
 import {Button, Gap, Header, Input} from '../../components';
 import {colors, useForm} from '../../utils';
-import {Fire} from '../../config';
-// import {createUserWithEmailAndPassword} from 'firebase/auth';
-// import Auth from '../../config/Firebase';
+import {createUserWithEmailAndPassword} from 'firebase/auth';
+import Auth from '../../config/Firebase';
 
 export default function Register({navigation}) {
   const [form, setForm] = useForm({
@@ -16,29 +15,19 @@ export default function Register({navigation}) {
 
   const onContinue = () => {
     console.log(form);
-    Fire.auth()
-      .signInWithEmailAndPassword(form.email, form.password)
+    createUserWithEmailAndPassword(Auth, form.email, form.password)
       .then(userCredential => {
         // Signed in
+
         console.log('User Credential', userCredential);
       })
       .catch(error => {
+        const errorCode = error.code;
+        console.log('error', errorCode);
         const errorMessage = error.message;
         console.log('error register', errorMessage);
       });
-    // createUserWithEmailAndPassword(Auth, form.email, form.password)
-    //   .then(userCredential => {
-    //     // Signed in
-
-    //     console.log('User Credential', userCredential);
-    //   })
-    //   .catch(error => {
-    //     const errorCode = error.code;
-    //     console.log('error', errorCode);
-    //     const errorMessage = error.message;
-    //     console.log('error register', errorMessage);
-    //   });
-    // navigation.navigate('UploadPhoto');
+    navigation.navigate('UploadPhoto');
   };
   return (
     <View style={styles.page}>

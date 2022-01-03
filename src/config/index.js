@@ -1,3 +1,3 @@
-import Fire from './Firebase';
+import Auth from './Firebase';
 
-export {Fire};
+export {Auth};
